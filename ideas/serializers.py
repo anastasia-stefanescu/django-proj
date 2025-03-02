@@ -6,6 +6,9 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name', 'slug']
+    
+    def create(self, validated_data):
+        return Category.objects.create(**validated_data)
 
 class IdeaSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
@@ -14,11 +17,15 @@ class IdeaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Idea
-        fields = ['id', 'title', 'content', 'category', 'author', 'created_at', 'likes', 'likes_count']
-        read_only_fields = ['author', 'created_at', 'likes']
+        fields = ['id', 'title', 'content', 'category', 'author', 'created_at', 'likes_count']
+        read_only_fields = ['id', 'author', 'created_at', 'likes_count']
 
     def get_likes_count(self, obj):
         return obj.likes.count()
+    
+    def create(self, validated_data):
+        user = self.context['request'].user
+        return Idea.objects.create(author=user, **validated_data)
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()

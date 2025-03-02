@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True) 
+    # part of a URL which identifies a particular page on a website in a form readable by users.
 
     def __str__(self):
         return self.name
