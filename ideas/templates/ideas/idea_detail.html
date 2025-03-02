@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ idea.title }}</h1>
+    <p><strong>Content:</strong> {{ idea.content }}</p>
+    <p><strong>Category:</strong> {{ idea.category }}</p>
+    <p><strong>Created At:</strong> {{ idea.created_at }}</p>
+    <p><strong>Author:</strong> {{ idea.author }}</p>
+
+    <a href="{% url 'home' %}">Back to Home</a>
+{% endblock %}

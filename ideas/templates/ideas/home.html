@@ -1,0 +1,17 @@
+{% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}!</p>
+    {% block content %}
+        <h1>All Ideas</h1>
+        <ul>
+            {% for idea in ideas %}
+                <li>
+                    <a href="{% url 'idea_detail' idea.id %}">{{ idea.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
+    
+    <a href="{% url 'logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
